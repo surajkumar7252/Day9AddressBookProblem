@@ -7,6 +7,8 @@ import java.util.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.google.common.*;
+
 class ContactDetails{
 	public String firstName;
 	public String lastName;
@@ -208,7 +210,21 @@ public class AddressBookMain {
 	}
 
 	
+	private static void  ContactByCity() {
+		Set<String> cityList = cityKeyToEntryMap.keySet();
+		for(String nameOfCity : cityList) {
+			System.out.println("Contact as per  city : " + nameOfCity);
+			searchingContactsByGivenCity(nameOfCity);
+		}
+	}
 	
+	private static void  ContactByState() {
+		Set<String> stateList = stateKeyToEntryMap.keySet();
+		for(String nameOfState : stateList) {
+			System.out.println("Contact as per  State: " + nameOfState);
+			searchingContactsByGivenState(nameOfState);
+		}
+	}
 	public static void main(String[] args) {
 		AddressBookMain addressBookMain = new AddressBookMain();
 		String choice;
@@ -220,6 +236,9 @@ public class AddressBookMain {
 			logger.debug("3.Deleting the details");
 			logger.debug("4.Seaching by city");
 			logger.debug("5.Seaching by state");
+			logger.debug("6.Show city and person dictionary");
+			logger.debug("7.Show state and person dictionary");
+			
 			
 		
 		int option=detailInput.nextInt();
@@ -270,6 +289,12 @@ public class AddressBookMain {
 		       String testState=detailInput.nextLine();
 		       searchingContactsByGivenState(testState);
 	             break;
+		case 6:
+	           ContactByCity();
+               break;
+		case 7: ContactByState();
+		        break;
+  
 		      
 		default: logger.debug("Wrong option selected");
 	
