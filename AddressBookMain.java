@@ -121,14 +121,20 @@ class ContactDetails{
 
 public class AddressBookMain {
 	public LinkedList<ContactDetails> contactLinkedListDetails;
-	public Map<String,ContactDetails> nameKeyInMap;
+	public static Map<String,ContactDetails> cityKeyToEntryMap;
+	public static Map<String,ContactDetails> stateKeyToEntryMap;
+	public static Map<String,ContactDetails> nameKeyToEntryMap;
+	
 	
 	static Scanner detailInput=new Scanner(System.in);
 	private static final Logger logger = LogManager.getLogger(AddressBookMain.class);
 	
 	public AddressBookMain() {
 		this.contactLinkedListDetails = new LinkedList<ContactDetails>();
-		this.nameKeyInMap= new HashMap<String,ContactDetails>();
+		cityKeyToEntryMap= new HashMap<String,ContactDetails>();
+		stateKeyToEntryMap= new HashMap<String,ContactDetails>();
+		nameKeyToEntryMap= new HashMap<String,ContactDetails>();
+		
 	}
 	
 		
@@ -151,7 +157,7 @@ public class AddressBookMain {
 				}
 			
 			}contactLinkedListDetails.add(contactDetail);
-			nameKeyInMap.put(contactDetail.getFirstName()+" ", contactDetail);
+			nameKeyToEntryMap.put(contactDetail.getFirstName()+" ", contactDetail);
 			
 		
 		}
@@ -162,21 +168,21 @@ public class AddressBookMain {
 	
 	public void editContactDetails(String testName,String testAddress,String testCity,String testState,
 			int testZip,String testPhoneNum,String testEmailId) {
-		nameKeyInMap.get(testName).setAddress(testAddress);
+		nameKeyToEntryMap.get(testName).setAddress(testAddress);
 		System.out.println("Setting Address.");
-		nameKeyInMap.get(testName).setCity(testCity);
+		nameKeyToEntryMap.get(testName).setCity(testCity);
 		System.out.println("Setting City.");
 		
-		nameKeyInMap.get(testName).setState(testState);
+		nameKeyToEntryMap.get(testName).setState(testState);
 		System.out.println("Setting State.");
 		
-		nameKeyInMap.get(testName).setZip(testZip);
+		nameKeyToEntryMap.get(testName).setZip(testZip);
 		System.out.println("Setting Zip.");
 		
-		nameKeyInMap.get(testName).setPhoneNum(testPhoneNum);
+		nameKeyToEntryMap.get(testName).setPhoneNum(testPhoneNum);
 		System.out.println("Setting Phone Number.");
 		
-		nameKeyInMap.get(testName).setEmailId(testEmailId);
+		nameKeyToEntryMap.get(testName).setEmailId(testEmailId);
 		System.out.println("Setting Email-Id.");
 		
 		
@@ -188,9 +194,19 @@ public class AddressBookMain {
 	public void deleteContactDetails(String testName) {
 		
 		
-		contactLinkedListDetails.remove(nameKeyInMap.get(testName));
+		contactLinkedListDetails.remove(nameKeyToEntryMap.get(testName));
 		
     }
+	
+	private static void searchingContactsByGivenCity(String testCity) {
+		logger.debug(cityKeyToEntryMap.get(testCity));
+		}
+
+	private static void  searchingContactsByGivenState(String testState) {
+		logger.debug(stateKeyToEntryMap.get(testState));
+		
+	}
+
 	
 	
 	public static void main(String[] args) {
@@ -198,56 +214,66 @@ public class AddressBookMain {
 		String choice;
 		do {
 			
-		System.out.println("Select what operation you want to perform== ");
-		System.out.println("1.Adding the details");
-		System.out.println("2.Editing the details");
-		System.out.println("3.Deleting the details");
+			logger.debug("Select what operation you want to perform== ");
+			logger.debug("1.Adding the details");
+			logger.debug("2.Editing the details");
+			logger.debug("3.Deleting the details");
+			logger.debug("4.Seaching by city");
+			logger.debug("5.Seaching by state");
+			
 		
 		int option=detailInput.nextInt();
 		switch(option)
 		{
 		case 1:  
-		         System.out.println("Editing Address Book via Console");
-		         System.out.println("Enter the Details to be added as follows :");
-		         System.out.println("First Name");
-		         System.out.println("Last Name");
-		         System.out.println("Address ");
-		         System.out.println("City ");
-		         System.out.println("State ");
-		         System.out.println("Zip ");
-		         System.out.println("Phone Number");
-		         System.out.println("Email ID");
+			logger.debug("Editing Address Book via Console");
+			logger.debug("Enter the Details to be added as follows :");
+			logger.debug("First Name");
+			logger.debug("Last Name");
+			logger.debug("Address ");
+			logger.debug("City ");
+			logger.debug("State ");
+			logger.debug("Zip ");
+			logger.debug("Phone Number");
+			logger.debug("Email ID");
 		         ContactDetails contactDetails=new ContactDetails(detailInput.nextLine(),detailInput.nextLine(),detailInput.nextLine(),detailInput.nextLine(),detailInput.nextLine(),
 	                      Integer.parseInt(detailInput.nextLine()),detailInput.nextLine(),detailInput.nextLine());
 		
 		         addressBookMain.addNewContact(contactDetails);
 		         break;
-		case 2: System.out.println("Enter the first name of that person whose data has to be edited == " );
+		case 2: logger.debug("Enter the first name of that person whose data has to be edited == " );
                 String testName=detailInput.nextLine();
-                System.out.println("enter the data of that person as follows");
-                System.out.println("First Name");
-		        System.out.println("Last Name");
-		        System.out.println("Address ");
-		        System.out.println("City ");
-		        System.out.println("State ");
-		        System.out.println("Zip ");
-		        System.out.println("Phone Number");
-		        System.out.println("Email ID");
+                logger.debug("enter the data of that person as follows");
+                logger.debug("Last Name");
+                logger.debug("Address ");
+                logger.debug("City ");
+                logger.debug("State ");
+                logger.debug("Zip ");
+                logger.debug("Phone Number");
+                logger.debug("Email ID");
 		
-		        addressBookMain.editContactDetails(detailInput.nextLine(),detailInput.nextLine(),detailInput.nextLine(),detailInput.nextLine(),
+		        addressBookMain.editContactDetails(testName,detailInput.nextLine(),detailInput.nextLine(),detailInput.nextLine(),
                                        Integer.parseInt(detailInput.nextLine()),detailInput.nextLine(),detailInput.nextLine());
-		        System.out.println("The details has been updated.");
+		        logger.debug("The details has been updated.");
 		        break;
-		case 3:System.out.println("Enter the first name of that person whose data has to be DELETED == " );
+		case 3:logger.debug("Enter the first name of that person whose data has to be DELETED == " );
                String Name=detailInput.nextLine();
         
 		       addressBookMain.deleteContactDetails(Name);
-		       System.out.println("The details has been updated.");
+		       logger.debug("The details has been updated.");
 		       break;
+		case 4:logger.debug("Enter the first name of the city to be searched form == " );
+                  String testCity=detailInput.nextLine();
+                  searchingContactsByGivenCity(testCity);
+                  break;
+		case 5:logger.debug("Enter the first name of the state to be searched form ==" );
+		       String testState=detailInput.nextLine();
+		       searchingContactsByGivenState(testState);
+	             break;
 		      
-		default: System.out.println("Wrong option selected");
+		default: logger.debug("Wrong option selected");
 	
-		}System.out.println("Do you want to perform again(yes/no)== ");
+		}logger.debug("Do you want to perform again(yes/no)== ");
 		 choice =detailInput.nextLine();
 		
 	}while(choice =="y");
