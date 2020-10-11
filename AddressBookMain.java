@@ -225,6 +225,22 @@ public class AddressBookMain {
 			searchingContactsByGivenState(nameOfState);
 		}
 	}
+	
+	
+	private static void CountByCity() {
+		Set<String> cityList = cityKeyToEntryMap.keySet();
+		for(String nameOfCity : cityList) {
+			System.out.println("Number of contact for" + nameOfCity + " " + cityKeyToEntryMap.get(nameOfCity));
+		}
+	}
+
+	private static void CountByState() {
+		Set<String> stateList = stateKeyToEntryMap.keySet();
+		for(String nameOfState : stateList) {
+			
+			System.out.println("Number of contact for " + nameOfState + " " + stateKeyToEntryMap.get(nameOfState));
+		}
+	}
 	public static void main(String[] args) {
 		AddressBookMain addressBookMain = new AddressBookMain();
 		String choice;
@@ -238,6 +254,8 @@ public class AddressBookMain {
 			logger.debug("5.Seaching by state");
 			logger.debug("6.Show city and person dictionary");
 			logger.debug("7.Show state and person dictionary");
+			logger.debug("8.City Contact Count");
+			logger.debug("9.State Contact Count");
 			
 			
 		
@@ -294,6 +312,11 @@ public class AddressBookMain {
                break;
 		case 7: ContactByState();
 		        break;
+		case 8: CountByCity();
+        break;
+		case 9: CountByState();
+        break;
+
   
 		      
 		default: logger.debug("Wrong option selected");
