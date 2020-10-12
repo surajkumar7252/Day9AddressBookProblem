@@ -122,7 +122,7 @@ class ContactDetails{
 }
 
 public class AddressBookMain {
-	public LinkedList<ContactDetails> contactLinkedListDetails;
+	public static LinkedList<ContactDetails> contactLinkedListDetails;
 	public static Map<String,ContactDetails> cityKeyToEntryMap;
 	public static Map<String,ContactDetails> stateKeyToEntryMap;
 	public static Map<String,ContactDetails> nameKeyToEntryMap;
@@ -132,7 +132,7 @@ public class AddressBookMain {
 	private static final Logger logger = LogManager.getLogger(AddressBookMain.class);
 	
 	public AddressBookMain() {
-		this.contactLinkedListDetails = new LinkedList<ContactDetails>();
+		contactLinkedListDetails = new LinkedList<ContactDetails>();
 		cityKeyToEntryMap= new HashMap<String,ContactDetails>();
 		stateKeyToEntryMap= new HashMap<String,ContactDetails>();
 		nameKeyToEntryMap= new HashMap<String,ContactDetails>();
@@ -211,20 +211,33 @@ public class AddressBookMain {
 
 	
 	private static void  ContactByCity() {
-		Set<String> cityList = cityKeyToEntryMap.keySet();
-		for(String nameOfCity : cityList) {
-			System.out.println("Contact as per  city : " + nameOfCity);
-			searchingContactsByGivenCity(nameOfCity);
+		Set<String> cityList=contactLinkedListDetails.stream().map(ContactDetails->ContactDetails.getCity()).collect(Collectors.toSet());
+		cityKeyToEntryMap = cityList.stream()
+				.collect(Collectors.toMap(cityList -> cityList,
+						cityList -> {
+							return contactLinkedListDetails.stream().filter(ContactDetails ->ContactDetails.getCity().equals(cityList)).sorted((c1, c2) -> {
+								return c1.getFirstName().compareTo(c2.getFirstName());
+							}).collect(Collectors.toList());
+						}));
+		
+		
 		}
 	}
 	
 	private static void  ContactByState() {
-		Set<String> stateList = stateKeyToEntryMap.keySet();
-		for(String nameOfState : stateList) {
-			System.out.println("Contact as per  State: " + nameOfState);
-			searchingContactsByGivenState(nameOfState);
+		Set<String> stateList=contactLinkedListDetails.stream().map(ContactDetails->ContactDetails.getState()).collect(Collectors.toSet());
+		stateKeyToEntryMap = stateList.stream()
+				.collect(Collectors.toMap(stateList -> stateList,
+						stateList -> {
+							return contactLinkedListDetails.stream().filter(ContactDetails ->ContactDetails.getState().equals(stateList)).sorted((c1, c2) -> {
+								return c1.getFirstName().compareTo(c2.getFirstName());
+							}).collect(Collectors.toList());
+						}));
+		
+		
 		}
-	}
+	
+	
 	
 	
 	private static void CountByCity() {
