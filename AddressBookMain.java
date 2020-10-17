@@ -4,6 +4,7 @@ package addressbookday9;
 
 import java.util.*;
 
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -115,8 +116,8 @@ class ContactDetails{
 	}
 	
 	public String toString() {
-		return "Contact Details : "+ firstName+ " "+ lastName +"||"+ address+ "||" +city+"||"+state+"||"
-				+ zip+"||"+phoneNum+"||"+emailId+";";
+		return "Contact Details : "+ firstName+ " "+ lastName +"|"+ address+ "|" +city+"|"+state+"|"
+				+ zip+"|"+phoneNum+"|"+emailId+";";
 	}
 	
 }
@@ -129,7 +130,7 @@ public class AddressBookMain {
 	
 	
 	static Scanner detailInput=new Scanner(System.in);
-	private static final Logger logger = LogManager.getLogger(AddressBookMain.class);
+	private static final Logger log = LogManager.getLogger(AddressBookMain.class);
 	
 	public AddressBookMain() {
 		contactLinkedListDetails = new LinkedList<ContactDetails>();
@@ -143,12 +144,12 @@ public class AddressBookMain {
 	
 	public void addNewContact(ContactDetails contactDetail) {
 		
-		logger.debug("enter the number of contacts to be fed: ");
+		log.info("enter the number of contacts to be fed: ");
 		int numOfContacts=detailInput.nextInt();
 		String firstName,lastName;
-		logger.debug("enter the first name to be fed: ");
+		log.info("enter the first name to be fed: ");
 		firstName=detailInput.nextLine();
-		logger.debug("enter the last name to be fed: ");
+		log.info("enter the last name to be fed: ");
 		lastName=detailInput.nextLine();
 		
 		for(int indexOfContact=0;indexOfContact<numOfContacts;indexOfContact++) {
@@ -171,21 +172,21 @@ public class AddressBookMain {
 	public void editContactDetails(String testName,String testAddress,String testCity,String testState,
 			int testZip,String testPhoneNum,String testEmailId) {
 		nameKeyToEntryMap.get(testName).setAddress(testAddress);
-		System.out.println("Setting Address.");
+		log.info("Setting Address.");
 		nameKeyToEntryMap.get(testName).setCity(testCity);
-		System.out.println("Setting City.");
+		log.info("Setting City.");
 		
 		nameKeyToEntryMap.get(testName).setState(testState);
-		System.out.println("Setting State.");
+		log.info("Setting State.");
 		
 		nameKeyToEntryMap.get(testName).setZip(testZip);
-		System.out.println("Setting Zip.");
+		log.info("Setting Zip.");
 		
 		nameKeyToEntryMap.get(testName).setPhoneNum(testPhoneNum);
-		System.out.println("Setting Phone Number.");
+		log.info("Setting Phone Number.");
 		
 		nameKeyToEntryMap.get(testName).setEmailId(testEmailId);
-		System.out.println("Setting Email-Id.");
+		log.info("Setting Email-Id.");
 		
 		
 		
@@ -201,11 +202,11 @@ public class AddressBookMain {
     }
 	
 	private static void searchingContactsByGivenCity(String testCity) {
-		logger.debug(cityKeyToEntryMap.get(testCity));
+		log.info(cityKeyToEntryMap.get(testCity));
 		}
 
 	private static void  searchingContactsByGivenState(String testState) {
-		logger.debug(stateKeyToEntryMap.get(testState));
+		log.info(stateKeyToEntryMap.get(testState));
 		
 	}
 
@@ -222,7 +223,7 @@ public class AddressBookMain {
 		
 		
 		}
-	}
+	
 	
 	private static void  ContactByState() {
 		Set<String> stateList=contactLinkedListDetails.stream().map(ContactDetails->ContactDetails.getState()).collect(Collectors.toSet());
@@ -243,7 +244,7 @@ public class AddressBookMain {
 	private static void CountByCity() {
 		Set<String> cityList = cityKeyToEntryMap.keySet();
 		for(String nameOfCity : cityList) {
-			System.out.println("Number of contact for" + nameOfCity + " " + cityKeyToEntryMap.get(nameOfCity));
+			log.info("Number of contact for" + nameOfCity + " " + cityKeyToEntryMap.get(nameOfCity));
 		}
 	}
 
@@ -251,7 +252,7 @@ public class AddressBookMain {
 		Set<String> stateList = stateKeyToEntryMap.keySet();
 		for(String nameOfState : stateList) {
 			
-			System.out.println("Number of contact for " + nameOfState + " " + stateKeyToEntryMap.get(nameOfState));
+			log.info("Number of contact for " + nameOfState + " " + stateKeyToEntryMap.get(nameOfState));
 		}
 	}
 	public static void main(String[] args) {
@@ -259,16 +260,16 @@ public class AddressBookMain {
 		String choice;
 		do {
 			
-			logger.debug("Select what operation you want to perform== ");
-			logger.debug("1.Adding the details");
-			logger.debug("2.Editing the details");
-			logger.debug("3.Deleting the details");
-			logger.debug("4.Seaching by city");
-			logger.debug("5.Seaching by state");
-			logger.debug("6.Show city and person dictionary");
-			logger.debug("7.Show state and person dictionary");
-			logger.debug("8.City Contact Count");
-			logger.debug("9.State Contact Count");
+			log.info("Select what operation you want to perform== ");
+			log.info("1.Adding the details");
+			log.info("2.Editing the details");
+			log.info("3.Deleting the details");
+			log.info("4.Seaching by city");
+			log.info("5.Seaching by state");
+			log.info("6.Show city and person dictionary");
+			log.info("7.Show state and person dictionary");
+			log.info("8.City Contact Count");
+			log.info("9.State Contact Count");
 			
 			
 		
@@ -276,47 +277,48 @@ public class AddressBookMain {
 		switch(option)
 		{
 		case 1:  
-			logger.debug("Editing Address Book via Console");
-			logger.debug("Enter the Details to be added as follows :");
-			logger.debug("First Name");
-			logger.debug("Last Name");
-			logger.debug("Address ");
-			logger.debug("City ");
-			logger.debug("State ");
-			logger.debug("Zip ");
-			logger.debug("Phone Number");
-			logger.debug("Email ID");
-		         ContactDetails contactDetails=new ContactDetails(detailInput.nextLine(),detailInput.nextLine(),detailInput.nextLine(),detailInput.nextLine(),detailInput.nextLine(),
+			log.info("Editing Address Book via Console");
+			log.info("Enter the Details to be added as follows :");
+			log.info("First Name");
+			log.info("Last Name");
+			log.info("Address ");
+			log.info("City ");
+			log.info("State ");
+			log.info("Zip ");
+			log.info("Phone Number");
+			log.info("Email ID");
+		         ContactDetails contactDetails;
+		         contactDetails=new ContactDetails(detailInput.nextLine(),detailInput.nextLine(),detailInput.nextLine(),detailInput.nextLine(),detailInput.nextLine(),
 	                      Integer.parseInt(detailInput.nextLine()),detailInput.nextLine(),detailInput.nextLine());
 		
 		         addressBookMain.addNewContact(contactDetails);
 		         break;
-		case 2: logger.debug("Enter the first name of that person whose data has to be edited == " );
+		case 2: log.info("Enter the first name of that person whose data has to be edited == " );
                 String testName=detailInput.nextLine();
-                logger.debug("enter the data of that person as follows");
-                logger.debug("Last Name");
-                logger.debug("Address ");
-                logger.debug("City ");
-                logger.debug("State ");
-                logger.debug("Zip ");
-                logger.debug("Phone Number");
-                logger.debug("Email ID");
+                log.info("enter the data of that person as follows");
+                log.info("Last Name");
+                log.info("Address ");
+                log.info("City ");
+                log.info("State ");
+                log.info("Zip ");
+                log.info("Phone Number");
+                log.info("Email ID");
 		
 		        addressBookMain.editContactDetails(testName,detailInput.nextLine(),detailInput.nextLine(),detailInput.nextLine(),
                                        Integer.parseInt(detailInput.nextLine()),detailInput.nextLine(),detailInput.nextLine());
-		        logger.debug("The details has been updated.");
+		        log.info("The details has been updated.");
 		        break;
-		case 3:logger.debug("Enter the first name of that person whose data has to be DELETED == " );
+		case 3:log.info("Enter the first name of that person whose data has to be DELETED == " );
                String Name=detailInput.nextLine();
         
 		       addressBookMain.deleteContactDetails(Name);
-		       logger.debug("The details has been updated.");
+		       log.info("The details has been updated.");
 		       break;
-		case 4:logger.debug("Enter the first name of the city to be searched form == " );
+		case 4:log.info("Enter the first name of the city to be searched form == " );
                   String testCity=detailInput.nextLine();
                   searchingContactsByGivenCity(testCity);
                   break;
-		case 5:logger.debug("Enter the first name of the state to be searched form ==" );
+		case 5:log.info("Enter the first name of the state to be searched form ==" );
 		       String testState=detailInput.nextLine();
 		       searchingContactsByGivenState(testState);
 	             break;
@@ -326,15 +328,15 @@ public class AddressBookMain {
 		case 7: ContactByState();
 		        break;
 		case 8: CountByCity();
-        break;
+               break;
 		case 9: CountByState();
-        break;
+               break;
 
   
 		      
-		default: logger.debug("Wrong option selected");
+		default: log.info("Wrong option selected");
 	
-		}logger.debug("Do you want to perform again(yes/no)== ");
+		}log.info("Do you want to perform again(yes/no)== ");
 		 choice =detailInput.nextLine();
 		
 	}while(choice =="y");
