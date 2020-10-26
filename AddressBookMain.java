@@ -1,3 +1,5 @@
+import java.util.*;
+
 class ContactDetails{
 	private String firstName;
 	private String lastName;
@@ -108,13 +110,42 @@ class ContactDetails{
 				+ zip+"||"+phoneNum+"||"+emailId+";";
 	}
 	
-	
-	
 }
+
 public class AddressBookMain {
+	
+	public static ContactDetails[] contactDetails;
+	public static int sizeOfAddressBook;
+	static Scanner sc=new Scanner(System.in);
+	
+	public AddressBookMain() {
+		contactDetails = new ContactDetails[20];
+		sizeOfAddressBook = 0;
+	}
+	
+	public void addNewContact(String firstName,String lasttName,String address,String city,String state,
+			int zip,String phoneNum,String emailId) {
+		
+		sizeOfAddressBook=sizeOfAddressBook+1;
+	}
+	
+	
 	public static void main(String[] args) {
-		ContactDetails contactDetails = new ContactDetails("Surajmal","Kumar","Madhyakunj","Dhanbad","Jharkhand",811000,"9999999999","surajmalkumar@gmail.com");
-		System.out.println("Contact Details Created");
+		AddressBookMain addressBookMain = new AddressBookMain();
+		System.out.println("Adding to Address Book via Console");
+		System.out.println("Enter the Details as follows :");
+		System.out.println("First Name");
+		System.out.println("Last Name");
+		System.out.println("Address ");
+		System.out.println("City ");
+		System.out.println("State ");
+		System.out.println("Zip ");
+		System.out.println("Phone Number");
+		System.out.println("Email ID");
+		
+		addressBookMain.addNewContact(sc.nextLine(),sc.nextLine(),sc.nextLine(),sc.nextLine(),sc.nextLine(),
+				                      Integer.parseInt(sc.nextLine()),sc.nextLine(),sc.nextLine());
+		
 		System.out.println(contactDetails);
 	}
 	
