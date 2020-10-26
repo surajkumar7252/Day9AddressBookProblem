@@ -149,39 +149,77 @@ public class AddressBookMain {
 		}
 	}
 	
+	public void deleteContactDetails(String testName) {
+		
+		for(int index =0;index<sizeOfAddressBook;index++) {
+			if(contactDetails[index]==null)
+			     continue;
+			     if(testName.equals(contactDetails[index].getFirstName())) {
+			    	 {
+			    		 contactDetails[index]=null;
+			    		 sizeOfAddressBook=sizeOfAddressBook-1;
+			    	 }
+		}
+	}
+ }
 	
 	public static void main(String[] args) {
 		AddressBookMain addressBookMain = new AddressBookMain();
-		System.out.println("Editing Address Book via Console");
-		System.out.println("Enter the Details to be added as follows :");
-		System.out.println("First Name");
-		System.out.println("Last Name");
-		System.out.println("Address ");
-		System.out.println("City ");
-		System.out.println("State ");
-		System.out.println("Zip ");
-		System.out.println("Phone Number");
-		System.out.println("Email ID");
+		String choice;
+		do {
+			
+		System.out.println("Select what operation you want to perform== ");
+		System.out.println("1.Adding the details");
+		System.out.println("2.Editing the details");
+		System.out.println("3.Deleting the details");
 		
-		addressBookMain.addNewContact(sc.nextLine(),sc.nextLine(),sc.nextLine(),sc.nextLine(),sc.nextLine(),
+		int option=sc.nextInt();
+		switch(option)
+		{
+		case 1:  
+		         System.out.println("Editing Address Book via Console");
+		         System.out.println("Enter the Details to be added as follows :");
+		         System.out.println("First Name");
+		         System.out.println("Last Name");
+		         System.out.println("Address ");
+		         System.out.println("City ");
+		         System.out.println("State ");
+		         System.out.println("Zip ");
+		         System.out.println("Phone Number");
+		         System.out.println("Email ID");
+		
+		         addressBookMain.addNewContact(sc.nextLine(),sc.nextLine(),sc.nextLine(),sc.nextLine(),sc.nextLine(),
 				                      Integer.parseInt(sc.nextLine()),sc.nextLine(),sc.nextLine());
+		         break;
+		case 2: System.out.println("Enter the first name of that person whose data has to be edited == " );
+                String testName=sc.nextLine();
+                System.out.println("enter the data of that person as follows");
+                System.out.println("First Name");
+		        System.out.println("Last Name");
+		        System.out.println("Address ");
+		        System.out.println("City ");
+		        System.out.println("State ");
+		        System.out.println("Zip ");
+		        System.out.println("Phone Number");
+		        System.out.println("Email ID");
 		
-		System.out.println("Enter the first name of that person whose data has to be edited == " );
-        String testName=sc.nextLine();
-        System.out.println("enter the data of that person as follows");
-        System.out.println("First Name");
-		System.out.println("Last Name");
-		System.out.println("Address ");
-		System.out.println("City ");
-		System.out.println("State ");
-		System.out.println("Zip ");
-		System.out.println("Phone Number");
-		System.out.println("Email ID");
-		
-		addressBookMain.editContactDetails(sc.nextLine(),sc.nextLine(),sc.nextLine(),sc.nextLine(),
-                Integer.parseInt(sc.nextLine()),sc.nextLine(),sc.nextLine());
-		System.out.println("The details has been updated.");
+		        addressBookMain.editContactDetails(sc.nextLine(),sc.nextLine(),sc.nextLine(),sc.nextLine(),
+                                       Integer.parseInt(sc.nextLine()),sc.nextLine(),sc.nextLine());
+		        System.out.println("The details has been updated.");
+		        break;
+		case 3:System.out.println("Enter the first name of that person whose data has to be DELETED == " );
+               String Name=sc.nextLine();
+        
+		       addressBookMain.deleteContactDetails(Name);
+		       System.out.println("The details has been updated.");
+		       break;
+		      
+		default: System.out.println("Wrong option selected");
 	
+		}System.out.println("Do you want to perform again(yes/no)== ");
+		 choice =sc.nextLine();
+		
+	}while(choice =="y");
 
         
 	}
