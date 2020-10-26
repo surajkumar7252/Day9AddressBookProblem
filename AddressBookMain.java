@@ -1,5 +1,7 @@
 import java.util.*;
 
+ 
+
 class ContactDetails{
 	private String firstName;
 	private String lastName;
@@ -113,55 +115,56 @@ class ContactDetails{
 }
 
 public class AddressBookMain {
+	public ArrayList<ContactDetails> contactDetails;
+	public Map<String,ContactDetails> nameKeyInMap;
 	
-	public static ContactDetails[] contactDetails;
-	public static int sizeOfAddressBook;
 	static Scanner sc=new Scanner(System.in);
 	
 	public AddressBookMain() {
-		contactDetails = new ContactDetails[20];
-		sizeOfAddressBook = 0;
+		this.contactDetails = new ArrayList<ContactDetails>();
+		this.nameKeyInMap= new HashMap<String,ContactDetails>();
 	}
 	
-	public void addNewContact(String firstName,String lasttName,String address,String city,String state,
-			int zip,String phoneNum,String emailId) {
 		
-		sizeOfAddressBook=sizeOfAddressBook+1;
+	
+	public void addNewContact(ContactDetails contactDetail) {
+		
+		contactDetails.add(contactDetail);
+		nameKeyInMap.put(contactDetail.getFirstName()+" ", contactDetail);
+		
 	}
 	
 	public void editContactDetails(String testName,String testAddress,String testCity,String testState,
 			int testZip,String testPhoneNum,String testEmailId) {
+		nameKeyInMap.get(testName).setAddress(testAddress);
+		System.out.println("Setting Address.");
+		nameKeyInMap.get(testName).setCity(testCity);
+		System.out.println("Setting City.");
 		
-		for(int index=0;index<sizeOfAddressBook;index++) {
-			     if(contactDetails[index]==null)
-			     continue;
-			     if(testName.equals(contactDetails[index].getFirstName())) {
-			      
-			    	 contactDetails[index].setAddress(testAddress);
-			    	 contactDetails[index].setCity(testCity);
-			    	 contactDetails[index].setState(testState);
-			    	 contactDetails[index].setZip(testZip);
-			    	 contactDetails[index].setPhoneNum(testPhoneNum);
-			    	 contactDetails[index].setEmailId(testEmailId);
-			    	
-			     }
+		nameKeyInMap.get(testName).setState(testState);
+		System.out.println("Setting State.");
+		
+		nameKeyInMap.get(testName).setZip(testZip);
+		System.out.println("Setting Zip.");
+		
+		nameKeyInMap.get(testName).setPhoneNum(testPhoneNum);
+		System.out.println("Setting Phone Number.");
+		
+		nameKeyInMap.get(testName).setEmailId(testEmailId);
+		System.out.println("Setting Email-Id.");
+		
+		
+   }
 			     
-		}
-	}
+			
 	
 	public void deleteContactDetails(String testName) {
 		
-		for(int index =0;index<sizeOfAddressBook;index++) {
-			if(contactDetails[index]==null)
-			     continue;
-			     if(testName.equals(contactDetails[index].getFirstName())) {
-			    	 {
-			    		 contactDetails[index]=null;
-			    		 sizeOfAddressBook=sizeOfAddressBook-1;
-			    	 }
-		}
-	}
- }
+		
+		contactDetails.remove(nameKeyInMap.get(testName));
+		
+    }
+	
 	
 	public static void main(String[] args) {
 		AddressBookMain addressBookMain = new AddressBookMain();
